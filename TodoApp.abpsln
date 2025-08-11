@@ -1,0 +1,14 @@
+{
+  "id": "e8357ee3-6b94-41fc-80e7-79c966d404dc",
+  "template": "empty",
+  "modules": {
+    "TodoApp": {
+      "path": "TodoApp.abpmdl"
+    }
+  },
+  "runProfiles": {
+    "Default": {
+      "path": "etc/abp-studio/run-profiles/Default.abprun.json"
+    }
+  }
+}
