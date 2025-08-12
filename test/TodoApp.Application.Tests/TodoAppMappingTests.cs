@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Shouldly;
@@ -15,44 +16,33 @@ namespace TodoApp
             _mapper = GetRequiredService<IMapper>();
         }
 
-        // Entity to DTO Mapping Tests
-        // --------------------------
-        // Why? Ensure entities are correctly mapped to DTOs
-        // What to test:
-        // 1. Test TodoItem to TodoItemDto mapping
-        // 2. Test all properties are mapped correctly
-        // 3. Test any custom mapping logic
+        [Fact]
+        public void Should_Map_TodoItem_To_TodoItemDto()
+        {
+            // Arrange
+            var todoItem = new TodoItem
+            {
+                Text = "Test Todo Item"
+            };
 
-        // DTO to Entity Mapping Tests (if needed)
-        // -------------------------------------
-        // Why? Ensure DTOs can be mapped back to entities if required
-        // What to test:
-        // 1. Test TodoItemDto to TodoItem mapping if implemented
-        // 2. Test handling of read-only properties
-        // 3. Test any custom reverse mapping logic
+            // Act
+            var dto = _mapper.Map<TodoItem, TodoItemDto>(todoItem);
 
-        // Collection Mapping Tests
-        // ----------------------
-        // Why? Ensure collections are mapped correctly
-        // What to test:
-        // 1. Test mapping of lists of TodoItems
-        // 2. Test mapping of empty collections
-        // 3. Test mapping of null collections
+            // Assert
+            dto.ShouldNotBeNull();
+            dto.Id.ShouldBe(todoItem.Id);
+            dto.Text.ShouldBe(todoItem.Text);
+        }
 
-        // Custom Value Resolver Tests
-        // -------------------------
-        // Why? Ensure custom mapping logic works correctly
-        // What to test:
-        // 1. Test any custom value resolvers
-        // 2. Test any calculated properties
-        // 3. Test any conditional mapping logic
 
-        // Error Handling Tests
-        // ------------------
-        // Why? Ensure mapping handles invalid data gracefully
-        // What to test:
-        // 1. Test mapping with null values
-        // 2. Test mapping with invalid data
-        // 3. Test any mapping validation rules
+        [Fact]
+        public void Should_Handle_Null_TodoItem()
+        {
+            // Act
+            var dto = _mapper.Map<TodoItemDto>(null as TodoItem);
+
+            // Assert
+            dto.ShouldBeNull();
+        }
     }
 }

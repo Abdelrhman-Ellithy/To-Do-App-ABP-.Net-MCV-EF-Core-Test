@@ -6,9 +6,11 @@ namespace TodoApp
     {
         public TodoAppApplicationAutoMapperProfile()
         {
-            /* You can configure your AutoMapper mapping configuration here.
-             * Alternatively, you can split your mapping configurations
-             * into multiple profile classes for a better organization. */
+            CreateMap<TodoItem, TodoItemDto>()
+                .ForAllMembers(opts => opts.PreCondition((src, dest, srcValue) => srcValue != null));
+
+            CreateMap<TodoItemDto, TodoItem>()
+                .ForAllMembers(opts => opts.PreCondition((src, dest, srcValue) => srcValue != null));
         }
     }
 }

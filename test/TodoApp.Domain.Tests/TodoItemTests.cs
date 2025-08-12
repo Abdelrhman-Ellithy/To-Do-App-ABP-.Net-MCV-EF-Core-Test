@@ -18,9 +18,8 @@ namespace TodoApp
             // Assert
             todoItem.ShouldNotBeNull();
             todoItem.Text.ShouldBe(todoText);
+            todoItem.Id.ShouldBe(Guid.Empty); // Id should be empty until saved
         }
-
-
 
         [Fact]
         public void Should_Update_Text()
@@ -33,8 +32,19 @@ namespace TodoApp
             todoItem.Text = newText;
 
             // Assert
-            todoItem.Text.ShouldBe( newText);
+            todoItem.Text.ShouldBe(newText);
         }
 
+        [Fact]
+        public void Should_Not_Accept_Too_Long_Text()
+        {
+            // Arrange
+            var longText = new string('x', 1001); // Assuming max length is 1000
+
+            // Act & Assert
+            Should.Throw<ArgumentException>(() =>
+                new TodoItem { Text = longText }
+            );
+        }
     }
 }

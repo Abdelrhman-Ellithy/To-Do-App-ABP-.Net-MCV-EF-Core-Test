@@ -42,6 +42,11 @@ namespace TodoApp
 
         public async Task DeleteAsync(Guid id)
         {
+            var item = await _todoItemRepository.FindAsync(id);
+            if (item == null)
+            {
+                throw new InvalidOperationException($"Todo item with id {id} not found.");
+            }
             await _todoItemRepository.DeleteAsync(id);
         }
     }
