@@ -28,7 +28,6 @@ namespace TodoApp
         [Fact]
         public async Task Should_Get_TodoItem_List()
         {
-            // Arrange
             await _todoAppService.CreateAsync("1");
             await _todoAppService.CreateAsync("2");
             var result = await _todoAppService.GetListAsync();
